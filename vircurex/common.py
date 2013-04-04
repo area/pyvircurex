@@ -2,11 +2,11 @@ import json
 import httplib
 
 
-def request(url, params={}):
-    header = {
-        "Content-type": "application/x-www-form-urlencoded"
-    }
+domain = "https://vircurex.com/api/"
+header = {"Content-type": "application/x-www-form-urlencoded"}
 
+
+def request(url, params={}):
     connection = httplib.HTTPSConnection(domain)
     connection.request("POST", url, params, header)
     response = connection.getresponse().read()
