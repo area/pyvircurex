@@ -1,12 +1,18 @@
+from common import request
+
 
 class Pair(object):
     def __init__(self, name):
         self.name = name
+        self.base, self.alternate = self.name.split("_")
 
     @property
     def lowest_ask(self):
-        pass
+        params = {"base" : self.base.upper(),
+                "alt" : self.alternate.upper()}
 
+        return request("/api/get_highest_bid.json", params)
+        
     @property
     def highest_bid(self):
         pass
