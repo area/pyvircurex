@@ -1,5 +1,5 @@
 
-def Pair(object):
+class Pair(object):
     def __init__(self, name):
         self.name = name
 
