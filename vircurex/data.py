@@ -14,7 +14,9 @@ class Pair(object):
 
     @property
     def highest_bid(self):
-        pass
+        params = {"base" : self.base.upper(),
+                "alt" : self.alternate.upper()}
+        return request("highest_bid", params)
 
     @property
     def last_trade(self):

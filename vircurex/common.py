@@ -11,6 +11,14 @@ api_schema = {
         "return" : "value",
         "type" : float
     },
+    "highest_bid" : {
+        "url" : "/api/get_highest_bid.json",
+        "return" : "value",
+        "type" : float
+    },
+
+
+    
 }
 
 
