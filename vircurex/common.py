@@ -86,9 +86,7 @@ def secure_request(account, api_call, token_string, names, params):
     request_params.update(zip(names, params))
 
     data = make_request(api_call, request_params)
-    print data
-
-    print check_token(account, data["timestamp"], token_string["output"], (data["balance"],))
+    #check_token(account, data["timestamp"], token_string["output"], (data["balance"],))
   
     return api["type"](data["balance"])
 
@@ -104,7 +102,6 @@ def make_token(account, token_string, params):
 def check_token(account, stamp, token_string, params):
     params = tuple([account.secret, account.user, stamp] + list(params))
 
-    print token_string % params
     token = hashlib.sha256(token_string % params).hexdigest()
     return  token
 
