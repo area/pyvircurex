@@ -7,7 +7,7 @@ domain = "vircurex.com"
 
 api_schema = {
     "lowest_ask" : {
-        "url" : "/api/get_highest_bid.json",
+        "url" : "/api/get_lowest_ask.json",
         "return" : "value",
         "type" : float
     },
