@@ -33,6 +33,9 @@ class Pair(object):
     def orderbook(self):
         return request("orderbook", self.default_params)
 
-    def trades(self, since):
-        pass
+    def trades(self, since=None):
+        params = self.default_params
+        if since is not None:
+            params["since"] = since
+        return request("trades", params)
 

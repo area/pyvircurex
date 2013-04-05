@@ -33,6 +33,10 @@ api_schema = {
     "orderbook" : {
         "url" : "/api/orderbook.json",
         "type" : dict
+    },
+    "trades" : {
+        "url" : "/api/trades.json",
+        "type" : list 
     }
 }
 

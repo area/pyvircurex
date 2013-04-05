@@ -8,4 +8,5 @@ print "last: ", pair.last_trade
 print "vol: ", pair.volume
 print "info: ", pair.info
 print "orderbook: ", pair.orderbook
+print "trades since tid 196012: ", pair.trades(since=196012)
 
