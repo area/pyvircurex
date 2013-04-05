@@ -6,17 +6,16 @@ class Pair(object):
         self.name = name
         self.base, self.alternate = self.name.split("_")
 
+        self.default_params = {"base" : self.base.upper(),
+                "alt" : self.alternate.upper()}
+
     @property
     def lowest_ask(self):
-        params = {"base" : self.base.upper(),
-                "alt" : self.alternate.upper()}
-        return request("lowest_ask", params)
+        return request("lowest_ask", self.default_params)
 
     @property
     def highest_bid(self):
-        params = {"base" : self.base.upper(),
-                "alt" : self.alternate.upper()}
-        return request("highest_bid", params)
+        return request("highest_bid", self.default_params)
 
     @property
     def last_trade(self):
