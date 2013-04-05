@@ -29,3 +29,8 @@ class Account(object):
                 ("ordertype", "amount", "currency1", "unitprice", "currency2"), \
                 ("BUY", amount, base, price, alternate))
 
+    def sell(self, base, amount, alternate, price):
+        return secure_request(self, "create_order", \
+                ("ordertype", "amount", "currency1", "unitprice", "currency2"), \
+                ("SELL", amount, base, price, alternate))
+
