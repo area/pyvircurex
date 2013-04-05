@@ -111,8 +111,6 @@ def make_request(api_call, params):
     params = urllib.urlencode(params)
     url = "%s?%s" % (api["url"], params)
 
-    print "URL: ", url 
-
     connection = httplib.HTTPSConnection(domain)
     connection.request("GET", url, {}, {})
     response = connection.getresponse().read()
@@ -148,8 +146,6 @@ def secure_request(account, api_call, names=(), params=()):
     data = make_request(api_call, request_params)
     #check_token(account, data["timestamp"], token_string["output"], (data["balance"],))
 
-    print data
-
     if api.has_key("return"):
         value = data[api["return"]]
     else:
@@ -163,8 +159,6 @@ def secure_request(account, api_call, names=(), params=()):
 def make_token(account, token_string, params):
     stamp = time.strftime("%Y-%m-%dT%H:%M:%S", tuple(time.gmtime()))
     params = tuple([account.secret, account.user, stamp, account.tid] + list(params))
-
-    print "TOKEN: ", token_string % params
 
     token = hashlib.sha256(token_string % params).hexdigest()
     return stamp, token
