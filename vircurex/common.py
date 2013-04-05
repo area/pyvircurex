@@ -43,28 +43,64 @@ api_schema = {
     "balance" : {
         "url" : "/api/get_balance.json",
         "return" : "balance",
-        "type" : float
+        "type" : float,
+        "token" : {
+            # secret;user;timestamp;ID;get_balance;currency
+            "input" : "%s;%s;%s;%i;get_balance;%s",
+            # secret;user;timestamp;get_balance;balance
+            "output" : "%s;%s;%s;get_balance;%s" 
+        }
     },
     "balances" : {
         "url" : "/api/get_balances.json",
         "return" : "balances",
-        "type" : dict 
+        "type" : dict,
+        "token" : {
+            # secret;user;timestamp;ID;get_balance
+            "input" : "%s;%s;%s;%i;get_balances",
+            # secret;user;timestamp;get_balance;balance
+            "output" : "%s;%s;%s;get_balances;%s" 
+        }
     },
     "order" : {
         "url" : "/api/read_order.json",
-        "type" : dict
+        "type" : dict,
+        "token" : {
+            # secret;user;timestamp;ID;read_order;orderid
+            "input" : "%s;%s;%s;%i;read_order;%i",
+            # secret;user;timestamp;get_balance;read_order;orderid
+            "output" : "%s;%s;%s;read_order;%i"
+        }
     },
     "orders" : {
         "url" : "/api/read_orders.json",
-        "type" : dict
+        "type" : dict,
+        "token" : {
+            # secret;user;timestamp;ID;read_orders
+            "input" : "%s;%s;%s;%i;read_orders",
+            # secret;user;timestamp;read_order
+            "output" : "%s;%s;%s;read_orders" 
+        }
     },
     "create_order" : {
         "url" : "/api/create_order.json",
-        "type" : dict
+        "type" : dict,
+        "token" : {
+            # secret;user;timestamp;ID;create_order;ordertype;amount;base;unitprice;alternate
+            "input" : "%s;%s;%s;%i;create_order;%s;%s;%s;%s;%s",
+            # secret;user;timestamp;create_order;orderid
+            "output" : "%s;%s;%s;read_orders;%s"
+        }
     },
     "delete_order" : {
         "url" : "/api/delete_order.json",
-        "type" : dict
+        "type" : dict,
+        "token" : {
+            # secret;user;timestamp;ID;delete_order;orderid
+            "input" : "%s;%s;%s;%i;delete_order;%i",
+            # secret;user;timestamp;delete_order;orderid
+            "output" : "%s;%s;%s;delete_order;%i"
+        }
     },
 }
 
@@ -97,8 +133,10 @@ def request(api_call, params={}):
     return api["type"](value)
 
 
-def secure_request(account, api_call, token_string, names=(), params=()):
-    stamp, token = make_token(account, token_string["input"], params)
+def secure_request(account, api_call, names=(), params=()):
+    api = api_schema[api_call]
+    
+    stamp, token = make_token(account, api["token"]["input"], params)
     request_params = {
         "account" : account.user,
         "id" : account.tid,
@@ -112,7 +150,6 @@ def secure_request(account, api_call, token_string, names=(), params=()):
 
     print data
 
-    api = api_schema[api_call]
     if api.has_key("return"):
         value = data[api["return"]]
     else:
