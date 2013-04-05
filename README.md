@@ -27,4 +27,4 @@ Trading is just as easy:
 
 # TODO
 
-Vircurex allows for difference secrets for different API calls, presently this wrapper assumed all API calls have the same secret.
+Vircurex allows for difference secrets for different API calls, presently this wrapper assumes all API calls have the same secret.
