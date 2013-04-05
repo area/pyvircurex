@@ -16,9 +16,24 @@ api_schema = {
         "return" : "value",
         "type" : float
     },
-
-
-    
+    "last_trade" : {
+        "url" : "/api/get_last_trade.json",
+        "return" : "value",
+        "type" : float
+    },
+    "volume" : {
+        "url" : "/api/get_volume.json",
+        "return" : "value",
+        "type" : float
+    },
+    "info" : {
+        "url" : "/api/get_info_for_1_currency.json",
+        "type" : dict
+    },
+    "orderbook" : {
+        "url" : "/api/orderbook.json",
+        "type" : dict
+    }
 }
 
 
@@ -34,6 +49,11 @@ def request(api_call, params={}):
     connection.close()
     
     data = json.loads(response)
-    value = data[api["return"]]
+    
+    if api.has_key("return"):
+        value = data[api["return"]]
+    else:
+        value = data
+    
     return api["type"](value)
 

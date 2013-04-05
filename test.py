@@ -2,5 +2,10 @@ from vircurex import Pair
 
 
 pair = Pair("btc_nmc")
-print pair.lowest_ask, pair.highest_bid
+print "ask: ", pair.lowest_ask
+print "bid: ", pair.highest_bid
+print "last: ", pair.last_trade
+print "vol: ", pair.volume
+print "info: ", pair.info
+print "orderbook: ", pair.orderbook
 

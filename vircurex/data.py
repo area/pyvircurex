@@ -19,19 +19,19 @@ class Pair(object):
 
     @property
     def last_trade(self):
-        pass
+        return request("last_trade", self.default_params)
 
     @property
     def volume(self):
-        pass
+        return request("volume", self.default_params)
 
     @property
     def info(self):
-        pass
+        return request("info", self.default_params)
 
     @property
     def orderbook(self):
-        pass
+        return request("orderbook", self.default_params)
 
     def trades(self, since):
         pass
