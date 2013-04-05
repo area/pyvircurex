@@ -10,7 +10,6 @@ class Pair(object):
     def lowest_ask(self):
         params = {"base" : self.base.upper(),
                 "alt" : self.alternate.upper()}
-
         return request("/api/get_highest_bid.json", params)
         
     @property
