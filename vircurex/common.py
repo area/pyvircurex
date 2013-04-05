@@ -44,7 +44,21 @@ api_schema = {
         "url" : "/api/get_balance.json",
         "return" : "balance",
         "type" : float
-    }
+    },
+    "balances" : {
+        "url" : "/api/get_balances.json",
+        "return" : "balances",
+        "type" : dict 
+    },
+    "order" : {
+        "url" : "/api/read_order.json",
+        "type" : dict
+    },
+    "orders" : {
+        "url" : "/api/read_orders.json",
+        "type" : dict
+    },
+
 }
 
 
@@ -63,9 +77,9 @@ def make_request(api_call, params):
    
    
 def request(api_call, params={}):
-    api = api_schema[api_call]
     data = make_request(api_call, params)
 
+    api = api_schema[api_call]
     if api.has_key("return"):
         value = data[api["return"]]
     else:
@@ -74,8 +88,7 @@ def request(api_call, params={}):
     return api["type"](value)
 
 
-def secure_request(account, api_call, token_string, names, params):
-    api = api_schema[api_call]
+def secure_request(account, api_call, token_string, names=(), params=()):
     stamp, token = make_token(account, token_string["input"], params)
     request_params = {
         "account" : account.user,
@@ -87,10 +100,20 @@ def secure_request(account, api_call, token_string, names, params):
 
     data = make_request(api_call, request_params)
     #check_token(account, data["timestamp"], token_string["output"], (data["balance"],))
-  
-    return api["type"](data["balance"])
 
-     
+    print data
+
+    api = api_schema[api_call]
+    if api.has_key("return"):
+        value = data[api["return"]]
+    else:
+        value = data
+
+    account.tid += 1
+
+    return api["type"](value)
+
+ 
 def make_token(account, token_string, params):
     stamp = time.strftime("%Y-%m-%dT%H:%M:%S", tuple(time.gmtime()))
     params = tuple([account.secret, account.user, stamp, account.tid] + list(params))
