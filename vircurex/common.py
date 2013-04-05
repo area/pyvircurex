@@ -58,7 +58,14 @@ api_schema = {
         "url" : "/api/read_orders.json",
         "type" : dict
     },
-
+    "create_order" : {
+        "url" : "/api/create_order.json",
+        "type" : dict
+    },
+    "delete_order" : {
+        "url" : "/api/delete_order.json",
+        "type" : dict
+    },
 }
 
 
@@ -67,7 +74,9 @@ def make_request(api_call, params):
      
     params = urllib.urlencode(params)
     url = "%s?%s" % (api["url"], params)
-    
+
+    print "URL: ", url 
+
     connection = httplib.HTTPSConnection(domain)
     connection.request("GET", url, {}, {})
     response = connection.getresponse().read()
@@ -117,6 +126,8 @@ def secure_request(account, api_call, token_string, names=(), params=()):
 def make_token(account, token_string, params):
     stamp = time.strftime("%Y-%m-%dT%H:%M:%S", tuple(time.gmtime()))
     params = tuple([account.secret, account.user, stamp, account.tid] + list(params))
+
+    print "TOKEN: ", token_string % params
 
     token = hashlib.sha256(token_string % params).hexdigest()
     return stamp, token
