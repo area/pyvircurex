@@ -105,7 +105,7 @@ api_schema = {
 }
 
 
-def make_request(api_call, params):
+def request(api_call, params):
     api = api_schema[api_call]
      
     params = urllib.urlencode(params)
@@ -119,8 +119,8 @@ def make_request(api_call, params):
     return json.loads(response)
    
    
-def request(api_call, params={}):
-    data = make_request(api_call, params)
+def public_request(api_call, params={}):
+    data = request(api_call, params)
 
     api = api_schema[api_call]
     if api.has_key("return"):
@@ -143,7 +143,7 @@ def secure_request(account, api_call, names=(), params=()):
     }
     request_params.update(zip(names, params))
 
-    data = make_request(api_call, request_params)
+    data = request(api_call, request_params)
     #check_token(account, data["timestamp"], token_string["output"], (data["balance"],))
 
     if api.has_key("return"):
