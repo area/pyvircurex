@@ -102,6 +102,16 @@ api_schema = {
             "output" : "%s;%s;%s;delete_order;%i"
         }
     },
+    "release_order" : {
+        "url" : "/api/release_order.json",
+        "type" : dict,
+        "token" : {
+            # secret;user;timestamp;ID;release_order;orderid
+            "input" : "%s;%s;%s;%i;release_order;%i",
+            # secret;user;timestamp;release_order;orderid
+            "output" : "%s;%s;%s;release_order;%i"
+        }
+    },
 }
 
 

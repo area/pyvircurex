@@ -34,3 +34,5 @@ class Account(object):
                 ("ordertype", "amount", "currency1", "unitprice", "currency2"), \
                 ("SELL", amount, base, price, alternate))
 
+    def release_order(self, orderid):
+        return secure_request(self, "release_order", ("orderid",), (orderid,))
