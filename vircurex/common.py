@@ -5,7 +5,7 @@ import httplib
 import hashlib
 
 
-domain = "vircurex.com"
+domain = "api.vircurex.com"
 
 api_schema = {
     "lowest_ask" : {
